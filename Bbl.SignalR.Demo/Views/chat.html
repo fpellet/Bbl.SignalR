@@ -10,5 +10,24 @@
     <input id="send" type="button" value="Send" />
 
     <ul id="messages"></ul>
+
+    <script src="/Scripts/jquery-1.11.2.js"></script>
+    <script src="/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script>
+        $(function () {
+            var connection = $.connection("/chat");
+
+            connection.received(function(data) {
+                $("#messages").append("<li>" + data + "</li>");
+            });
+
+            connection.start().done(function() {
+                $("#send").click(function () {
+                    var msg = $("#msg").val();
+                    connection.send(msg);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
