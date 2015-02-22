@@ -8,6 +8,7 @@
 
     <input id="msg" type="text" />
     <input id="send" type="button" value="Send" />
+    <input id="echo" type="button" value="Echo" />
 
     <ul id="messages"></ul>
 
@@ -24,6 +25,10 @@
             connection.start().done(function() {
                 $("#send").click(function () {
                     var msg = $("#msg").val();
+                    connection.send(msg);
+                });
+                $("#echo").click(function () {
+                    var msg = "echo:" + $("#msg").val();
                     connection.send(msg);
                 });
             });

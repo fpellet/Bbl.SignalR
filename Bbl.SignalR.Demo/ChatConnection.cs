@@ -12,6 +12,11 @@ namespace Bbl.SignalR.Demo
 
         protected override Task OnReceived(IRequest request, string connectionId, string data)
         {
+            if (data.StartsWith("echo:"))
+            {
+                return Connection.Send(connectionId, data);
+            }
+
             return Connection.Broadcast(data);
         }
     }
