@@ -7,6 +7,8 @@ namespace Bbl.SignalR.Demo
         public IndexModule()
         {
             Get["/"] = parameters => View["index"];
+
+            Get["/chat"] = parameters => View["chat"];
         }
     }
 }
