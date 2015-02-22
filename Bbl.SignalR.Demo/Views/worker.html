@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Demo Mug</title>
+
+    <link href="/Content/themes/base/all.css" rel="stylesheet" />
+    <style>
+        #processbar {
+            width: 200px;
+        }
+        #notifications {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="processbar"></div>
+    <div id="notifications"></div>
+
+    <button id="start">Start</button>
+
+    <script src="/Scripts/jquery-1.11.2.js"></script>
+    <script src="/Scripts/jquery-ui-1.11.3.js"></script>
+    <script src="/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+        $(function () {
+            $('#processbar').progressbar({ value: 0 });
+            var worker = $.connection.workerHub;
+
+            worker.client.notify = function (msg) {
+                $('#notifications').html(msg);
+            };
+
+            worker.client.setProgress = function (value) {
+                $('#processbar').progressbar({ value: value });
+            };
+
+            worker.state.Name = "Joe";
+
+            $.connection.hub.start().done(function () {
+                $("#start").click(function () {
+                    worker.server.doWork({ Name: "LongProcess" });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
