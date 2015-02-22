@@ -1,4 +1,5 @@
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 
 namespace Bbl.SignalR.Demo
@@ -16,6 +17,13 @@ namespace Bbl.SignalR.Demo
             }
 
             Clients.All.Notify("End");
+        }
+
+        public void DoWork2(Process process)
+        {
+            Clients.All.Notify("Start " + process.Name);
+
+            Task.Run(() => process.Work());
         }
     }
 }
