@@ -7,6 +7,7 @@ namespace Bbl.SignalR.Demo
         public void Configuration(IAppBuilder app)
         {
             app.MapSignalR<ChatConnection>("/chat");
+            app.MapSignalR();
             app.UseNancy();
         }
     }
