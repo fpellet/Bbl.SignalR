@@ -10,6 +10,7 @@ namespace Bbl.SignalR.Demo
 
             Get["/demo/chat"] = parameters => View["chat"];
             Get["/demo/chatHub"] = parameters => View["chathub"];
+            Get["/demo/mug"] = parameters => View["mug"];
         }
     }
 }

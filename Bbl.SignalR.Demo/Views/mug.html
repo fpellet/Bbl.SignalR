@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Demo Mug</title>
+
+    <style>
+        #mug {
+            width: 480px;
+            height: 480px;
+            background-image: url("/Content/mug_csharp_microsoft_linq.jpg");
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <div id="mug"></div>
+
+    <script src="/Scripts/jquery-1.11.2.js"></script>
+    <script src="/Scripts/jquery-ui-1.11.3.js"></script>
+    <script src="/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.mug;
+            var $mug = $("#mug");
+
+            hub.client.moved = function (x, y) {
+                $mug.css({ left: x, top: y });
+            };
+
+            $.connection.hub.start().done(function () {
+                $mug.draggable({
+                    drag: function () {
+                        hub.server.move(this.offsetLeft, this.offsetTop || 0);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
