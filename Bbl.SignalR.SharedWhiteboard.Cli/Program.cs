@@ -16,6 +16,7 @@ namespace Bbl.SignalR.SharedWhiteboard.Cli
 
             connection.Start();
             Console.WriteLine("Ready");
+            ClearConsole();
             Console.ReadKey();
         }
 
